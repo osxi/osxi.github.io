@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Concept Map</title>
+  <script src="lib/util.js"></script>
+  <script src="templates/legend-template.hbs"></script>
+  <script src="templates/popup-template.hbs"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://www.fsfoo.com/js/vendor/handlebars-1.0.rc.2.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="app.css" />
+
+  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.Default.css" />
+  <script src="vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+  <!-- <script src="geojsonfeature.js"></script> -->
+  <script src="fixtures.js"></script>
+</head>
+<body>
+  <h3>Concept Map</h3>
+  <div id="map"></div>
+  <script type="text/javascript">
+    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    // constrain bounds
+    var southWest = L.latLng(29.789515814993596, -95.86137771606445);
+    var northEast = L.latLng(29.81409407031192,  -95.8128833770752);
+    var bounds = L.latLngBounds([southWest, northEast]);
+
+    var map = L.map('map', {
+      maxBounds: bounds,
+      zoom:      17
+    }).addLayer(tiles);
+    var markers = L.markerClusterGroup();
+
+    // for real_markers layer
+    var markers_array = [];
+
+    var geoJsonLayer = L.geoJson(GEOJSON_FIXTURES, {
+      style: function(feature) {
+        switch (feature.properties.Status) {
+          case 'Available': return {color: "#2EA337", weight: 1};
+          case 'Unavailable': return {color: "#EB1A1A", weight: 1}
+        }
+      },
+      onEachFeature: function (feature, layer) {
+        // markers_array.push(L.marker(feature.geometry.coordinates[0][0].reverse(), {opacity: 0.0}));
+
+        // Find center coords for the current feature
+        center = centerCoords(feature.geometry.coordinates[0]);
+        // console.log( 'center coords: ' + center[0][0] );
+        // L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.2}).addTo(map);
+
+        // popupTemplate Handlebars context
+        var context = {
+          lot:     feature.properties.Lot,
+          block:   feature.properties.Block,
+          section: feature.properties.Section,
+          status:  feature.properties.Status
+        };
+
+        // Get raw handlebars template
+        var source  = $("#popup-template").html();
+
+        // Strip out LF/CRLF
+        // source = source.replace(/(\r\n|\n|\r)/gm,"");
+
+        // Process raw handlebars template (ready-for-context state)
+        var popupTemplate = Handlebars.compile(source);
+
+        markers_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.0}));
+        layer.bindPopup(popupTemplate(context));
+      }
+    });
+    markers.addLayer(geoJsonLayer);
+
+    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
+    var real_markers_layer = L.layerGroup(markers_array);
+    real_markers.addLayer(real_markers_layer);
+    // Don't show the clustering by default
+    // map.addLayer(real_markers);
+    map.addLayer(markers);
+    map.fitBounds(markers.getBounds());
+
+    // Zoom stuff
+    map.on('zoomend', function(event) {
+      var zoomLevel     = map.getZoom(),
+          zoomThreshold = 15;
+      console.log('zoomLevel: ' + zoomLevel);
+
+      if (zoomLevel <= zoomThreshold) {
+        map.removeLayer(markers); // polygons from geojson
+        map.addLayer(real_markers); // cluster markers
+      } else if (zoomLevel >= zoomThreshold) {
+        map.addLayer(markers); // polygons from geojson
+        map.removeLayer(real_markers); // cluster markers
+      }
+    });
+
+    // console log lat/long on click
+    map.on('click', function(event) {
+      console.log('[' + event.latlng.lat + ', ' + event.latlng.lng + ']');
+      // console.log('latLng: ' + event.latlng.lat);
+    });
+
+    // Legend
+    var sectionLegend = L.control({position: 'bottomleft'});
+    var sectionChangeLegend = L.control({position: 'bottomleft'});
+
+    sectionLegend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legend');
+      // div.innerHTML += 'testing';
+      var context  = {};
+      var source   = $('#legend-template').html();
+      var template = Handlebars.compile(source);
+      div.innerHTML += template(context);
+
+      return div;
+    };
+
+    // Add this one (only) for now, as the Population layer is on by default
+    sectionLegend.addTo(map);
+
+    map.on('overlayadd', function (eventLayer) {
+      sectionLegend.addTo(this);
+    });
+  </script>
+  </body>
+</html>

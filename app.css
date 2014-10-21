@@ -1,0 +1,69 @@
+#map {
+  width: 800px;
+  height: 600px;
+  border: 1px solid #ccc;
+}
+
+#progress {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    left: 400px;
+    top: 300px;
+    width: 200px;
+    height: 20px;
+    margin-top: -20px;
+    margin-left: -100px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+#progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #76A6FC;
+    border-radius: 4px;
+}
+
+.legend {
+  background-color: gray;
+  border: 1px solid black;
+  width: 125px;
+  height: 125px;
+  opacity: 0.75;
+  font-weight: bold;
+  line-height: 1em;
+  border-rai
+}
+
+.legend h1 {
+  text-align: center;
+}
+
+.legend ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.legend li {
+  height: 30px;
+}
+
+.status {
+  display: block;
+  float:   left;
+  width:   20px;
+  height:  20px;
+  border:  1px solid #000;
+  margin:  0 5px 0 0;
+}
+
+.available {
+  background-color: green;
+}
+
+.unavailable {
+  background-color: red;
+}
