@@ -3,8 +3,6 @@
 <head>
   <title>Concept Map</title>
   <script src="lib/util.js"></script>
-  <script src="templates/legend-template.hbs"></script>
-  <script src="templates/popup-template.hbs"></script>
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -18,6 +16,7 @@
   <script src="vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
   <!-- <script src="geojsonfeature.js"></script> -->
   <script src="fixtures.js"></script>
+  <script src="lib/template-loader.js"></script>
 </head>
 <body>
   <h3>Concept Map</h3>
@@ -42,6 +41,12 @@
     // for real_markers layer
     var markers_array = [];
 
+    // Process templates
+    var popupTemplate;
+    getTemplate('popup-template').then(function(res) {
+      popupTemplate = Handlebars.compile(res);
+    });
+
     var geoJsonLayer = L.geoJson(GEOJSON_FIXTURES, {
       style: function(feature) {
         switch (feature.properties.Status) {
@@ -50,12 +55,8 @@
         }
       },
       onEachFeature: function (feature, layer) {
-        // markers_array.push(L.marker(feature.geometry.coordinates[0][0].reverse(), {opacity: 0.0}));
-
         // Find center coords for the current feature
         center = centerCoords(feature.geometry.coordinates[0]);
-        // console.log( 'center coords: ' + center[0][0] );
-        // L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.2}).addTo(map);
 
         // popupTemplate Handlebars context
         var context = {
@@ -65,26 +66,16 @@
           status:  feature.properties.Status
         };
 
-        // Get raw handlebars template
-        var source  = $("#popup-template").html();
-
-        // Strip out LF/CRLF
-        // source = source.replace(/(\r\n|\n|\r)/gm,"");
-
-        // Process raw handlebars template (ready-for-context state)
-        var popupTemplate = Handlebars.compile(source);
-
         markers_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.0}));
         layer.bindPopup(popupTemplate(context));
       }
     });
-    markers.addLayer(geoJsonLayer);
 
-    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
+    markers.addLayer(geoJsonLayer);
     var real_markers_layer = L.layerGroup(markers_array);
+    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
     real_markers.addLayer(real_markers_layer);
-    // Don't show the clustering by default
-    // map.addLayer(real_markers);
+    // map.addLayer(real_markers); // Clustered markers
     map.addLayer(markers);
     map.fitBounds(markers.getBounds());
 
@@ -106,21 +97,17 @@
     // console log lat/long on click
     map.on('click', function(event) {
       console.log('[' + event.latlng.lat + ', ' + event.latlng.lng + ']');
-      // console.log('latLng: ' + event.latlng.lat);
     });
 
     // Legend
     var sectionLegend = L.control({position: 'bottomleft'});
-    var sectionChangeLegend = L.control({position: 'bottomleft'});
-
     sectionLegend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'legend');
-      // div.innerHTML += 'testing';
-      var context  = {};
-      var source   = $('#legend-template').html();
-      var template = Handlebars.compile(source);
-      div.innerHTML += template(context);
-
+      var div = L.DomUtil.create('div', 'legend');
+      // Process template
+      getTemplate('legend-template').then(function(res) {
+        var template = Handlebars.compile(res);
+        div.innerHTML += template({});
+      });
       return div;
     };
 
