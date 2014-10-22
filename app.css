@@ -1,7 +1,8 @@
 #map {
   width: 800px;
   height: 600px;
-  border: 1px solid #ccc;
+  border: 5px solid #ccc;
+  border-radius: 8px;
 }
 
 #progress {
@@ -29,13 +30,13 @@
 
 .legend {
   background-color: gray;
-  border: 1px solid black;
+  border: 5px solid #ccc;
+  border-radius: 8px;
   width: 125px;
   height: 125px;
   opacity: 0.75;
   font-weight: bold;
   line-height: 1em;
-  border-rai
 }
 
 .legend h1 {
