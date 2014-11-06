@@ -66,7 +66,7 @@
 
 <script>
   // constrain bounds
-  var southWest = L.latLng(29.789515814993596, -95.86137771606445);
+  var southWest = L.latLng(29.785515814993596, -95.86137771606445);
   var northEast = L.latLng(29.81409407031192,  -95.8128833770752);
   var bounds = L.latLngBounds([southWest, northEast]);
 
@@ -75,6 +75,11 @@
     maxBounds: bounds
   });
   map.legendControl.addLegend(document.getElementById('legend').innerHTML);
+
+  // console log lat/long on click
+  map.on('click', function(event) {
+    console.log('[' + event.latlng.lat + ', ' + event.latlng.lng + ']');
+  });
 </script>
 </body>
 </html>
