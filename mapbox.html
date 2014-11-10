@@ -13,15 +13,27 @@
 </head>
 <body>
 <style>
+.legend {
+  width: 125px;
+}
 .legend label,
 .legend span {
   display:block;
   float:left;
   height:15px;
-  width:50%;
   text-align:center;
   font-size:9px;
   color:#808080;
+}
+.legend label {
+  width: 75%;
+}
+.legend span {
+  width: 25%;
+}
+.legend small {
+  display: block;
+  padding-top: 60px;
 }
 #link {
   position: absolute;
@@ -56,10 +68,11 @@
 <div id='legend' style='display:none;'>
   <strong>Legend</strong>
   <nav class='legend clearfix'>
-    <span style='background:#008a33;'></span>
-    <span style='background:red;'></span>
-    <label>Available</label>
-    <label>Unavailable</label>
+    <span style='background:#008a33;'></span><label>Available</label>
+    <span style='background:red;'></span><label>Sold</label>
+    <span style='background:#70a7d7;'></span><label>Reserved</label>
+    <span style='background:#c76bbc;'></span><label>Model</label>
+    <span style='background:#939e4f;'></span><label>Future Phase</label>
     <small>Source: <a href="#link to source">Some footer text.</a></small>
 </div>
 <div id='map' class='dark'></div>
