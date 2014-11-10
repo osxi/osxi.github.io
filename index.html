@@ -67,6 +67,12 @@
           case 'Unavailable': return {color: "#EB1A1A", weight: 1}
         }
       },
+      filter: function(feature, layer) {
+        // Return feature unless coordinates are null
+        if (feature.geometry.coordinates != null) {
+          return feature;
+        }
+      },
       onEachFeature: function (feature, layer) {
         // Find center coords for the current feature
         center = centerCoords(feature.geometry.coordinates[0]);
