@@ -4,7 +4,10 @@
 <meta charset=utf-8 />
 <title>Mapbox Demo</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<script src="http://www.fsfoo.com/js/vendor/handlebars-1.0.rc.2.js"></script>
+<script src="lib/template-loader.js"></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
 <style>
   body { margin:0; padding:0; }
@@ -88,6 +91,57 @@
     maxBounds: bounds
   });
   map.legendControl.addLegend(document.getElementById('legend').innerHTML);
+
+  // retrieve lots
+  var lots;
+  $.before
+    $.ajax({
+      url: 'http://dev.caneisland.com/api/?key=Aw3DpHbwvcG32VRLYObWnlyagF0f0B&focus=lots',
+      async: false,
+      success: function(res) {
+        lots = res;
+      }
+    });
+
+  // Process lot template
+  var lotTemplate;
+  getTemplate('popup-template').then(function(res) {
+    lotTemplate = Handlebars.compile(res);
+  });
+
+  // lots popups
+  var lotFeatures = L.geoJson(lots, {
+    style: function(feature) {
+      return {opacity: 0.0, fillOpacity: 0.0}
+    },
+    filter: function(feature, layer) {
+      // Return feature unless coordinates are null
+      if (feature.geometry.coordinates != null) {
+        return feature;
+      }
+    },
+    onEachFeature: function (feature, layer) {
+      // popupTemplate Handlebars context
+      var context = {
+        lot:     feature.properties.Lot,
+        block:   feature.properties.Block,
+        section: feature.properties.Section,
+        status:  feature.properties.Status
+      };
+      layer.bindPopup(lotTemplate(context));
+    }
+  });
+
+  // add/remove lots popups based on zoom level
+  map.on('zoomend', function(event) {
+    var zoomLevel = map.getZoom();
+
+    if (zoomLevel >= 17) {
+      map.addLayer(lotFeatures);
+    } else {
+      map.removeLayer(lotFeatures);
+    }
+  });
 
   // console log lat/long on click
   map.on('click', function(event) {
