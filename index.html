@@ -1,141 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Leaflet Demo</title>
-  <script src="lib/util.js"></script>
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="http://www.fsfoo.com/js/vendor/handlebars-1.0.rc.2.js"></script>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="app.css" />
-
-  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.css" />
-  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.Default.css" />
-  <script src="vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
-  <!-- <script src="geojsonfeature.js"></script> -->
-  <!-- <script src="fixtures.js"></script> -->
-  <script src="lib/template-loader.js"></script>
+<meta charset=utf-8 />
+<title>Mapbox Demo</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<script src="http://www.fsfoo.com/js/vendor/handlebars-1.0.rc.2.js"></script>
+<script src="lib/template-loader.js"></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
 </head>
 <body>
-  <div id="link">
-  <a href="#" class="muted">Leaflet Demo</a>
+<style>
+.legend {
+  width: 125px;
+}
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+}
+.legend label {
+  width: 75%;
+}
+.legend span {
+  width: 25%;
+}
+.legend small {
+  display: block;
+  padding-top: 60px;
+}
+#link {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  z-index: 999;
+}
+#link a, a:visited {
+  font-size: 32px;
+  color: white;
+  text-decoration: none;
+  font-family: arial;
+}
+#link a:hover {
+  text-decoration: underline;
+}
+.muted {
+  color: #4D4D4D !important;
+  pointer-events: none;
+  cursor: default;
+}
+</style>
+
+<!--
+<div id="link">
+  <a href="index.html">Leaflet Demo</a>
   <br />
-  <a href="mapbox.html">Mapbox Demo</a>
+  <a href="#" class="muted">Mapbox Demo</a>
 </div>
-  <div id="map"></div>
-  <script type="text/javascript">
-    var geojson;
+-->
+
+<!-- Set the display of this container to none so we can
+     add it programmatically to `legendControl` -->
+<div id='legend' style='display:none;'>
+  <strong>Legend</strong>
+  <nav class='legend clearfix'>
+    <span style='background:#008a33;'></span><label>Available</label>
+    <span style='background:red;'></span><label>Sold</label>
+    <span style='background:#70a7d7;'></span><label>Reserved</label>
+    <span style='background:#c76bbc;'></span><label>Model</label>
+    <span style='background:#939e4f;'></span><label>Future Phase</label>
+    <small>Source: <a href="#link to source">Some footer text.</a></small>
+</div>
+<div id='map' class='dark'></div>
+
+<script>
+  // constrain bounds
+  var southWest = L.latLng(29.785515814993596, -95.86137771606445);
+  var northEast = L.latLng(29.81409407031192,  -95.8128833770752);
+  var bounds = L.latLngBounds([southWest, northEast]);
+
+  L.mapbox.accessToken = 'pk.eyJ1IjoiemFjaG5nbyIsImEiOiJvcWs3ZUNzIn0.39DyohkAiyoDn3ol-ToWkQ';
+  var map = L.mapbox.map('map', 'zachngo.6b6959ee', {
+    maxBounds: bounds
+  });
+  map.legendControl.addLegend(document.getElementById('legend').innerHTML);
+
+  // retrieve lots
+  var lots;
+  $.before
     $.ajax({
       url: 'http://dev.caneisland.com/api/?key=Aw3DpHbwvcG32VRLYObWnlyagF0f0B&focus=lots',
       async: false,
       success: function(res) {
-        geojson = res;
+        lots = res;
       }
     });
 
-    var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 18,
-      attribution: ''
-    });
+  // Process lot template
+  var lotTemplate;
+  getTemplate('popup-template').then(function(res) {
+    lotTemplate = Handlebars.compile(res);
+  });
 
-    // constrain bounds
-    var southWest = L.latLng(29.789515814993596, -95.86137771606445);
-    var northEast = L.latLng(29.81409407031192,  -95.8128833770752);
-    var bounds = L.latLngBounds([southWest, northEast]);
-
-    var map = L.map('map', {
-      maxBounds: bounds,
-      zoom:      17
-    }).addLayer(tiles);
-    var markers = L.markerClusterGroup();
-
-    // for real_markers layer
-    var markers_array = [];
-
-    // Process templates
-    var popupTemplate;
-    getTemplate('popup-template').then(function(res) {
-      popupTemplate = Handlebars.compile(res);
-    });
-
-    var geoJsonLayer = L.geoJson(geojson, {
-      style: function(feature) {
-        switch (feature.properties.Status) {
-          case 'Available': return {color: "#2EA337", weight: 1};
-          case 'Unavailable': return {color: "#EB1A1A", weight: 1}
-        }
-      },
-      filter: function(feature, layer) {
-        // Return feature unless coordinates are null
-        if (feature.geometry.coordinates != null) {
-          return feature;
-        }
-      },
-      onEachFeature: function (feature, layer) {
-        // Find center coords for the current feature
-        center = centerCoords(feature.geometry.coordinates[0]);
-
-        // popupTemplate Handlebars context
-        var context = {
-          lot:     feature.properties.Lot,
-          block:   feature.properties.Block,
-          section: feature.properties.Section,
-          status:  feature.properties.Status
-        };
-
-        markers_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.0}));
-        layer.bindPopup(popupTemplate(context));
+  // lots popups
+  var lotFeatures = L.geoJson(lots, {
+    style: function(feature) {
+      return {opacity: 0.0, fillOpacity: 0.0}
+    },
+    filter: function(feature, layer) {
+      // Return feature unless coordinates are null
+      if (feature.geometry.coordinates != null) {
+        return feature;
       }
-    });
+    },
+    onEachFeature: function (feature, layer) {
+      // popupTemplate Handlebars context
+      var context = {
+        lot:     feature.properties.Lot,
+        block:   feature.properties.Block,
+        section: feature.properties.Section,
+        status:  feature.properties.Status
+      };
+      layer.bindPopup(lotTemplate(context));
+    }
+  });
 
-    markers.addLayer(geoJsonLayer);
-    var real_markers_layer = L.layerGroup(markers_array);
-    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    real_markers.addLayer(real_markers_layer);
-    // map.addLayer(real_markers); // Clustered markers
-    map.addLayer(markers);
-    map.fitBounds(markers.getBounds());
+  // add/remove lots popups based on zoom level
+  map.on('zoomend', function(event) {
+    var zoomLevel = map.getZoom();
 
-    // Zoom stuff
-    map.on('zoomend', function(event) {
-      var zoomLevel     = map.getZoom(),
-          zoomThreshold = 15;
-      console.log('zoomLevel: ' + zoomLevel);
+    if (zoomLevel >= 17) {
+      map.addLayer(lotFeatures);
+    } else {
+      map.removeLayer(lotFeatures);
+    }
+  });
 
-      if (zoomLevel <= zoomThreshold) {
-        map.removeLayer(markers); // polygons from geojson
-        map.addLayer(real_markers); // cluster markers
-      } else if (zoomLevel >= zoomThreshold) {
-        map.addLayer(markers); // polygons from geojson
-        map.removeLayer(real_markers); // cluster markers
-      }
-    });
-
-    // console log lat/long on click
-    map.on('click', function(event) {
-      console.log('[' + event.latlng.lat + ', ' + event.latlng.lng + ']');
-    });
-
-    // Legend
-    var sectionLegend = L.control({position: 'bottomleft'});
-    sectionLegend.onAdd = function (map) {
-      var div = L.DomUtil.create('div', 'legend');
-      // Process template
-      getTemplate('legend-template').then(function(res) {
-        var template = Handlebars.compile(res);
-        div.innerHTML += template({});
-      });
-      return div;
-    };
-
-    // Add this one (only) for now, as the Population layer is on by default
-    sectionLegend.addTo(map);
-
-    map.on('overlayadd', function (eventLayer) {
-      sectionLegend.addTo(this);
-    });
-  </script>
-  </body>
+  // console log lat/long on click
+  map.on('click', function(event) {
+    console.log('[' + event.latlng.lat + ', ' + event.latlng.lng + ']');
+  });
+</script>
+</body>
 </html>
