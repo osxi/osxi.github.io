@@ -34,34 +34,36 @@ html, body {
 }
 
 #progress-bar {
-    width: 0;
-    height: 100%;
-    background-color: #76A6FC;
-    border-radius: 4px;
+  width: 0;
+  height: 100%;
+  background-color: #76A6FC;
+  border-radius: 4px;
 }
-
-.legend {
-  background-color: gray;
-  border: 5px solid #ccc;
-  border-radius: 8px;
+#legend {
   width: 125px;
-  height: 125px;
-  opacity: 0.75;
-  font-weight: bold;
-  line-height: 1em;
+  background-color: white;
+  border-radius: 4px;
+  padding: 5px;
+  border: 1px solid #000;
 }
-
-.legend h1 {
-  text-align: center;
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
 }
-
-.legend ul {
-  list-style-type: none;
-  padding-left: 20px;
+.legend label {
+  width: 75%;
 }
-
-.legend li {
-  height: 30px;
+.legend span {
+  width: 25%;
+}
+.legend small {
+  display: block;
+  padding-top: 60px;
 }
 
 .status {
