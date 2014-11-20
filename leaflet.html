@@ -35,7 +35,7 @@
       }
     });
 
-    var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: ''
     });
@@ -119,7 +119,7 @@
     });
 
     // Legend
-    var sectionLegend = L.control({position: 'bottomleft'});
+    var sectionLegend = L.control({position: 'bottomright'});
     sectionLegend.onAdd = function (map) {
       var div = L.DomUtil.create('div', 'legend');
       // Process template
