@@ -136,6 +136,23 @@
     map.on('overlayadd', function (eventLayer) {
       sectionLegend.addTo(this);
     });
+
+    $.getJSON('json/community_features.json', function(res) {
+      console.log('json: ' + res);
+      L.geoJson(res, {
+        style: function(feature) {
+          switch(feature.properties.Type) {
+            case 'Structure':     return { className: 'structure-path' };
+            case 'Water':         return { className: 'water-path' };
+            case 'Landscaping':   return { className: 'landscaping-path' };
+            default:              return { className: 'other-path' };
+          }
+        },
+        onEachFeature: function(feature, layer) {
+          layer.bindPopup(feature.properties.Community);
+        }
+      }).addTo(map);
+    });
   </script>
   </body>
 </html>

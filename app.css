@@ -106,3 +106,28 @@ html, body {
   pointer-events: none;
   cursor: default;
 }
+
+/* Path styling for "Type": "Structure" */
+.structure-path {
+  stroke: brown;
+  fill: brown;
+  stroke-width: 1px;
+}
+
+/* Path styling for "Type": "Water" */
+.water-path {
+  stroke: blue;
+  fill: blue;
+  stroke-width: 1px;
+}
+
+/* Path styling for "Type": "Landscaping" */
+.landscaping-path {
+  stroke: darkgreen;
+  fill: darkgreen;
+  stroke-width: 1px;
+}
+
+/* Paths with "Type" property other than above */
+.other-path {
+}
