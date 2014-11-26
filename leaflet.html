@@ -28,7 +28,7 @@
   <script type="text/javascript">
     var geojson;
     $.ajax({
-      url: 'http://dev.caneisland.com/api/?key=Aw3DpHbwvcG32VRLYObWnlyagF0f0B&focus=lots',
+      url: 'http://caneisland.com/tmpep.php',
       async: false,
       success: function(res) {
         geojson = res;
@@ -63,8 +63,11 @@
     var geoJsonLayer = L.geoJson(geojson, {
       style: function(feature) {
         switch (feature.properties.Status) {
-          case 'Available': return {color: "#2EA337", weight: 1};
-          case 'Unavailable': return {color: "#EB1A1A", weight: 1}
+          case 'Available':    return { className: 'available-home-path' };
+          case 'Sold':         return { className: 'sold-home-path' };
+          case 'Reserved':     return { className: 'reserved-home-path' };
+          case 'Model':        return { className: 'model-home-path' };
+          case 'Future Phase': return { className: 'future-phase-home-path' };
         }
       },
       filter: function(feature, layer) {
