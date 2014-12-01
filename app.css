@@ -103,6 +103,11 @@ html, body {
   font-size: 10px;
 }
 
+/* Community label div */
+.community-icon {
+  border: 0;
+}
+
 /* Cluster label div */
 .cluster-icon {
   border: 0;

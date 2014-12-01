@@ -62,6 +62,14 @@
     getTemplate('community-feature-template').then(function(res) {
       communityFeatureTemplate = Handlebars.compile(res);
     });
+    var sectionTemplate;
+    getTemplate('section-template').then(function(res) {
+      sectionTemplate = Handlebars.compile(res);
+    });
+    var communityTemplate;
+    getTemplate('community-template').then(function(res) {
+      communityTemplate = Handlebars.compile(res);
+    });
 
     var geoJsonLayer = L.geoJson(geojson, {
       style: function(feature) {
@@ -122,14 +130,24 @@
       var zoomLevel     = map.getZoom(),
           zoomThreshold = 14;
 
-      if (zoomLevel <= zoomThreshold) {
+      if (zoomLevel < 13) {
+        map.removeLayer(markers);
+        map.removeLayer(real_markers);
+        map.removeLayer(sections_layer);
+        map.removeLayer(community_feature_layer);
+        map.addLayer(community_layer);
+      } else if (zoomLevel <= zoomThreshold) {
         map.removeLayer(markers); // polygons from geojson
+        map.removeLayer(community_layer);
         map.addLayer(real_markers); // cluster markers
         map.addLayer(sections_layer);
+        map.addLayer(community_feature_layer);
       } else if (zoomLevel >= zoomThreshold) {
         map.addLayer(markers); // polygons from geojson
+        map.addLayer(community_feature_layer);
         //map.removeLayer(real_markers); // cluster markers
         map.removeLayer(sections_layer);
+        map.removeLayer(community_layer);
       }
     });
 
@@ -157,14 +175,15 @@
       sectionLegend.addTo(this);
     });
 
+    var community_feature_layer = L.layerGroup();
     $.getJSON('json/community_features.json', function(res) {
       L.geoJson(res, {
         style: function(feature) {
           switch(feature.properties.Type) {
-            case 'Structure':     return { className: 'structure-path' };
-            case 'Water':         return { className: 'water-path' };
-            case 'Landscaping':   return { className: 'landscaping-path' };
-            default:              return { className: 'other-path' };
+            case 'Structure':   return { className: 'structure-path' };
+            case 'Water':       return { className: 'water-path' };
+            case 'Landscaping': return { className: 'landscaping-path' };
+            default:            return { className: 'other-path' };
           }
         },
         onEachFeature: function(feature, layer) {
@@ -174,7 +193,7 @@
           };
           layer.bindPopup(communityFeatureTemplate(context));
         }
-      }).addTo(map);
+      }).addTo(community_feature_layer).addTo(map);
     });
 
     var sections_array = [];
@@ -193,7 +212,6 @@
             };
 
             var center = centerCoords(feature.geometry.coordinates[0]);
-            console.log('center: ', center);
 
             var sectionIcon = L.divIcon({
               html: feature.properties.Count,
@@ -201,17 +219,42 @@
             });
 
             sections_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 1.0, icon: sectionIcon}));
-            layer.bindPopup(communityFeatureTemplate(context));
+            layer.bindPopup(sectionTemplate(context));
           }
         });
         sections_array.push(section);
         sections_layer = L.layerGroup(sections_array);
       }).done(function(res) {
-        console.log('getJSON finished.');
+        // console.log('getJSON finished.');
       });
     }
-    console.log('sections_array: ', sections_array);
-    map.addLayer(L.layerGroup(sections_array));
+
+    var community_layer = L.layerGroup();
+    $.getJSON('json/community.json', function(res) {
+      L.geoJson(res, {
+        style: function(feature) {
+          return { className: 'section-path' };
+        },
+        onEachFeature: function(feature, layer) {
+          var context = {
+            text: feature.properties.Description
+          };
+
+          var center = centerCoords(feature.geometry.coordinates[0]);
+
+          var communityIcon = L.divIcon({
+            html: feature.properties.Title,
+            className: 'community-icon'
+          });
+
+          L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 1.0, icon: communityIcon})
+            .addTo(community_layer);
+          layer.bindPopup(communityTemplate(context));
+        }
+      }).addTo(community_layer);
+    }).done(function(res) {
+      // console.log('getJSON finished.');
+    });
   </script>
   </body>
 </html>
