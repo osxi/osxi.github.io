@@ -114,7 +114,6 @@
     map.on('zoomend', function(event) {
       var zoomLevel     = map.getZoom(),
           zoomThreshold = 14;
-      console.log('zoomLevel: ' + zoomLevel);
 
       if (zoomLevel <= zoomThreshold) {
         map.removeLayer(markers); // polygons from geojson
@@ -150,7 +149,6 @@
     });
 
     $.getJSON('json/community_features.json', function(res) {
-      console.log('json: ' + res);
       L.geoJson(res, {
         style: function(feature) {
           switch(feature.properties.Type) {
