@@ -4,13 +4,14 @@
   <title>Leaflet Demo</title>
   <script src="lib/util.js"></script>
   <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+  <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" /> -->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="http://www.fsfoo.com/js/vendor/handlebars-1.0.rc.2.js"></script>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+  <!-- <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="app.css" />
-
   <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.css" />
   <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.Default.css" />
   <script src="vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
@@ -30,20 +31,19 @@
       }
     });
 
-    var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: ''
-    });
-
     // constrain bounds
     var southWest = L.latLng(29.794175906436607, -95.84880352020264);
     var northEast = L.latLng(29.80240618715455, -95.83125114440918);
     var bounds = L.latLngBounds([southWest, northEast]);
 
-    var map = L.map('map', {
+    L.mapbox.accessToken = 'pk.eyJ1IjoiYWFyb25jcmF3Zm9yZCIsImEiOiIyLU43MklFIn0.v6H9ifCG9wAsIlcmjTRayQ';
+
+    var map = L.mapbox.map('map', 'aaroncrawford.16e891e6', {
       maxBounds: bounds,
-      maxZoom: 18,
-      minZoom: 10
-    }).addLayer(tiles);
+      maxZoom:   18,
+      minZoom:   10
+    });
+
     var markers = L.markerClusterGroup({
       iconCreateFunction: function(clustre) {
         return new L.divIcon({html: ''});
