@@ -47,7 +47,7 @@
 
     var map = L.map('map', {
       maxBounds: bounds,
-      zoom:      17
+      zoom:      16
     }).addLayer(tiles);
     var markers = L.markerClusterGroup();
 
@@ -88,23 +88,28 @@
           status:  feature.properties.Status
         };
 
-        markers_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 0.0}));
+        var lotIcon = L.divIcon({
+          html: feature.properties.Lot,
+          className: 'lot-icon'
+        });
+
+        markers_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 1.0, icon: lotIcon}));
         layer.bindPopup(popupTemplate(context));
       }
     });
 
     markers.addLayer(geoJsonLayer);
     var real_markers_layer = L.layerGroup(markers_array);
-    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
+    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 15});
     real_markers.addLayer(real_markers_layer);
-    // map.addLayer(real_markers); // Clustered markers
+    map.addLayer(real_markers); // Clustered markers
     map.addLayer(markers);
     map.fitBounds(markers.getBounds());
 
     // Zoom stuff
     map.on('zoomend', function(event) {
       var zoomLevel     = map.getZoom(),
-          zoomThreshold = 15;
+          zoomThreshold = 14;
       console.log('zoomLevel: ' + zoomLevel);
 
       if (zoomLevel <= zoomThreshold) {
@@ -112,7 +117,7 @@
         map.addLayer(real_markers); // cluster markers
       } else if (zoomLevel >= zoomThreshold) {
         map.addLayer(markers); // polygons from geojson
-        map.removeLayer(real_markers); // cluster markers
+        //map.removeLayer(real_markers); // cluster markers
       }
     });
 

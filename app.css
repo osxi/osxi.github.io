@@ -117,3 +117,9 @@ html, body {
 /* Community Features path with "Type" property other than above */
 .other-path {
 }
+
+/* Lot label div */
+.lot-icon {
+  border: 0;
+  font-size: 10px;
+}
