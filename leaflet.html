@@ -59,6 +59,10 @@
     getTemplate('popup-template').then(function(res) {
       popupTemplate = Handlebars.compile(res);
     });
+    var communityFeatureTemplate;
+    getTemplate('community-feature-template').then(function(res) {
+      communityFeatureTemplate = Handlebars.compile(res);
+    });
 
     var geoJsonLayer = L.geoJson(geojson, {
       style: function(feature) {
@@ -157,7 +161,11 @@
           }
         },
         onEachFeature: function(feature, layer) {
-          layer.bindPopup(feature.properties.Community);
+          var context = {
+            community: feature.properties.Community,
+            type:      feature.properties.Type
+          };
+          layer.bindPopup(communityFeatureTemplate(context));
         }
       }).addTo(map);
     });
