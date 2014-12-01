@@ -36,7 +36,6 @@
     });
 
     var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
       attribution: ''
     });
 
@@ -47,9 +46,15 @@
 
     var map = L.map('map', {
       maxBounds: bounds,
-      zoom:      16
+      zoom:    16,
+      maxZoom: 18,
+      minZoom: 10
     }).addLayer(tiles);
-    var markers = L.markerClusterGroup();
+    var markers = L.markerClusterGroup({
+      iconCreateFunction: function(clustre) {
+        return new L.divIcon({html: ''});
+      }
+    });
 
     // for real_markers layer
     var markers_array = [];
@@ -104,7 +109,15 @@
 
     markers.addLayer(geoJsonLayer);
     var real_markers_layer = L.layerGroup(markers_array);
-    var real_markers = L.markerClusterGroup({disableClusteringAtZoom: 15});
+    var real_markers = L.markerClusterGroup({
+      disableClusteringAtZoom: 15,
+      iconCreateFunction: function(clustere) {
+        return new L.divIcon({
+          html: '',
+          className: 'cluster-icon'
+        });
+      }
+    });
     real_markers.addLayer(real_markers_layer);
     map.addLayer(real_markers); // Clustered markers
     map.addLayer(markers);
@@ -118,9 +131,11 @@
       if (zoomLevel <= zoomThreshold) {
         map.removeLayer(markers); // polygons from geojson
         map.addLayer(real_markers); // cluster markers
+        map.addLayer(sections_layer);
       } else if (zoomLevel >= zoomThreshold) {
         map.addLayer(markers); // polygons from geojson
         //map.removeLayer(real_markers); // cluster markers
+        map.removeLayer(sections_layer);
       }
     });
 
@@ -167,6 +182,42 @@
         }
       }).addTo(map);
     });
+
+    var sections_array = [];
+    var sections_layer = L.layerGroup();
+    var section;
+    for(i=1; i<=9; i++) {
+      $.getJSON('json/section-' + i + '.json', function(res) {
+        section = L.geoJson(res, {
+          style: function(feature) {
+            return { className: 'section-path' };
+          },
+          onEachFeature: function(feature, layer) {
+            var context = {
+              section: feature.properties.Community,
+              count:   feature.properties.Type
+            };
+
+            var center = centerCoords(feature.geometry.coordinates[0]);
+            console.log('center: ', center);
+
+            var sectionIcon = L.divIcon({
+              html: feature.properties.Count,
+              className: 'section-icon'
+            });
+
+            sections_array.push(L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 1.0, icon: sectionIcon}));
+            layer.bindPopup(communityFeatureTemplate(context));
+          }
+        });
+        sections_array.push(section);
+        sections_layer = L.layerGroup(sections_array);
+      }).done(function(res) {
+        console.log('getJSON finished.');
+      });
+    }
+    console.log('sections_array: ', sections_array);
+    map.addLayer(L.layerGroup(sections_array));
   </script>
   </body>
 </html>

@@ -123,3 +123,15 @@ html, body {
   border: 0;
   font-size: 10px;
 }
+
+/* Cluster label div */
+.cluster-icon {
+  border: 0;
+}
+
+/* Section boundary features */
+.section-path {
+  stroke: black;
+  fill: black;
+  stroke-width: 1px;
+}
