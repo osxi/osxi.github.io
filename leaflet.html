@@ -19,11 +19,6 @@
   <script src="lib/template-loader.js"></script>
 </head>
 <body>
-  <div id="link">
-  <a href="#" class="muted">Leaflet Demo</a>
-  <br />
-  <a href="mapbox.html">Mapbox Demo</a>
-</div>
   <div id="map"></div>
   <script type="text/javascript">
     var geojson;
@@ -40,13 +35,12 @@
     });
 
     // constrain bounds
-    var southWest = L.latLng(29.789515814993596, -95.86137771606445);
-    var northEast = L.latLng(29.81409407031192,  -95.8128833770752);
+    var southWest = L.latLng(29.794175906436607, -95.84880352020264);
+    var northEast = L.latLng(29.80240618715455, -95.83125114440918);
     var bounds = L.latLngBounds([southWest, northEast]);
 
     var map = L.map('map', {
       maxBounds: bounds,
-      zoom:    16,
       maxZoom: 18,
       minZoom: 10
     }).addLayer(tiles);
