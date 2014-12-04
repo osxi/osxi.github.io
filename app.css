@@ -101,6 +101,8 @@ html, body {
 .lot-icon {
   border: 0;
   font-size: 10px;
+  margin-left: 0;
+  line-height: normal;
 }
 
 /* Community label div */

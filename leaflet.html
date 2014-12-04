@@ -121,7 +121,7 @@
       }
     });
     real_markers.addLayer(real_markers_layer);
-    map.addLayer(real_markers); // Clustered markers
+    //map.addLayer(real_markers); // Clustered markers
     map.addLayer(markers);
     map.fitBounds(markers.getBounds());
 
@@ -129,6 +129,7 @@
     map.on('zoomend', function(event) {
       var zoomLevel     = map.getZoom(),
           zoomThreshold = 14;
+      console.log('zoomLevel: ', zoomLevel);
 
       if (zoomLevel < 13) {
         map.removeLayer(markers);
@@ -139,13 +140,17 @@
       } else if (zoomLevel <= zoomThreshold) {
         map.removeLayer(markers); // polygons from geojson
         map.removeLayer(community_layer);
-        map.addLayer(real_markers); // cluster markers
+        //map.addLayer(real_markers); // cluster markers
         map.addLayer(sections_layer);
         map.addLayer(community_feature_layer);
       } else if (zoomLevel >= zoomThreshold) {
         map.addLayer(markers); // polygons from geojson
         map.addLayer(community_feature_layer);
-        //map.removeLayer(real_markers); // cluster markers
+        if (zoomLevel > 16) {
+          map.addLayer(real_markers); // cluster markers
+        } else {
+          map.removeLayer(real_markers); // cluster markers
+        }
         map.removeLayer(sections_layer);
         map.removeLayer(community_layer);
       }
