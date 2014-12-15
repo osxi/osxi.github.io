@@ -11,7 +11,8 @@
       "type": "Feature",
       "properties": {
         "Community": "Rec. Site",
-        "Type": "Structure"
+        "Type": "Structure",
+        "Title": "Rec. Site"
       },
       "geometry": {
         "type": "Polygon",

@@ -196,6 +196,16 @@
             community: feature.properties.Community,
             type:      feature.properties.Type
           };
+
+          var center = centerCoords(feature.geometry.coordinates[0]);
+
+          var communityFeatureIcon = L.divIcon({
+            html: feature.properties.Title || '',
+            className: 'community-feature-icon'
+          });
+
+          L.marker(L.latLng(center[0][0], center[0][1]), {opacity: 1.0, icon: communityFeatureIcon})
+            .addTo(community_feature_layer);
           layer.bindPopup(communityFeatureTemplate(context));
         }
       }).addTo(community_feature_layer).addTo(map);

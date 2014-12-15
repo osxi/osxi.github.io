@@ -99,6 +99,7 @@ html, body {
 
 /* Lot label div */
 .lot-icon {
+  pointer-events: none;
   border: 0;
   font-size: 10px;
   margin-left: 0;
@@ -107,11 +108,13 @@ html, body {
 
 /* Community label div */
 .community-icon {
+  pointer-events: none;
   border: 0;
 }
 
 /* Cluster label div */
 .cluster-icon {
+  pointer-events: none;
   border: 0;
 }
 
