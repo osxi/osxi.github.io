@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <title>osxi</title>
+    <description>My collection of hopefully useful articles
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 07 Aug 2015 21:20:18 -0500</pubDate>
-    <lastBuildDate>Fri, 07 Aug 2015 21:20:18 -0500</lastBuildDate>
+    <link>http://osxi.github.io/</link>
+    <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 08 Aug 2015 13:47:53 -0500</pubDate>
+    <lastBuildDate>Sat, 08 Aug 2015 13:47:53 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -28,8 +28,8 @@
 
 </description>
         <pubDate>Fri, 07 Aug 2015 16:17:03 -0500</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2015/08/07/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/08/07/welcome-to-jekyll.html</guid>
+        <link>http://osxi.github.io/jekyll/update/2015/08/07/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://osxi.github.io/jekyll/update/2015/08/07/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
