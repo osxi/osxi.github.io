@@ -6,8 +6,8 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 Sep 2015 00:57:39 -0500</pubDate>
-    <lastBuildDate>Tue, 22 Sep 2015 00:57:39 -0500</lastBuildDate>
+    <pubDate>Tue, 22 Sep 2015 01:06:03 -0500</pubDate>
+    <lastBuildDate>Tue, 22 Sep 2015 01:06:03 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -39,7 +39,7 @@
 
 &lt;p&gt;First, we’ll checkout the &lt;code&gt;gh-pages&lt;/code&gt; branch (see &lt;a href=&quot;https://help.github.com/articles/creating-project-pages-manually/&quot;&gt;Creating Project Pages manually&lt;/a&gt; if you need to create a &lt;code&gt;gh-pages&lt;/code&gt; branch) with:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ember build --environment production&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git checkout gh-pages&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Copy the app build into the root of the repository:&lt;/p&gt;
 
