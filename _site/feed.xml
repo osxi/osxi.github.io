@@ -6,9 +6,66 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 09 Aug 2015 21:39:51 -0500</pubDate>
-    <lastBuildDate>Sun, 09 Aug 2015 21:39:51 -0500</lastBuildDate>
+    <pubDate>Tue, 22 Sep 2015 00:32:45 -0500</pubDate>
+    <lastBuildDate>Tue, 22 Sep 2015 00:32:45 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Deploying Ember CLI apps to GitHub Pages</title>
+        <description>&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;While there are tools that can help automate this process (such as &lt;a href=&quot;https://github.com/poetic/ember-cli-github-pages/&quot;&gt;ember-cli-github-pages&lt;/a&gt;), it might be helpful to understand how this process works manually.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;url&lt;/code&gt; CSS datatype should reference image data with a path like &lt;code&gt;url(&#39;images/foo.png&#39;)&lt;/code&gt;*. Images embedded into templates should reference image data with a path such as &lt;code&gt;assets/images/foo.png&lt;/code&gt;*.&lt;/p&gt;
+
+&lt;p&gt;It is important to not prefix the path with &lt;code&gt;/&lt;/code&gt;, since this is a full path on the HTTP server and not relative to &lt;code&gt;ENV.baseURL&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;After that, ensure that &lt;code&gt;config/environment.js&lt;/code&gt; contains:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;production&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;baseURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/project-name&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;locationType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hash&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;* &lt;em&gt;where &lt;code&gt;foo.png&lt;/code&gt; is an image at &lt;code&gt;project-name/public/assets/images/foo.png&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;build&quot;&gt;Build&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;code&gt;ember build --environment production&lt;/code&gt; to build the project to &lt;code&gt;dist/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;deploy-to-github&quot;&gt;Deploy to GitHub&lt;/h2&gt;
+
+&lt;p&gt;First, we’ll checkout the &lt;code&gt;gh-pages&lt;/code&gt; branch (see &lt;a href=&quot;https://help.github.com/articles/creating-project-pages-manually/&quot;&gt;Creating Project Pages manually&lt;/a&gt; if you need to create a &lt;code&gt;gh-pages&lt;/code&gt; branch) with:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ember build --environment production&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the app build into the root of the repository:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cp -R dist/* ./&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Commit and push the changes:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git commit -m &lt;span class=&quot;s1&quot;&gt;&amp;#39;update gh-pages to a73f45e&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git push&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;after-action-review&quot;&gt;After Action Review&lt;/h2&gt;
+
+&lt;p&gt;The changes to GitHub pages can take several seconds (around 5-30 seconds) to take effect. Instead of manually creating the &lt;code&gt;gh-pages&lt;/code&gt; branch, you can &lt;a href=&quot;https://help.github.com/articles/creating-pages-with-the-automatic-generator/&quot;&gt;create pages with the automatic generator&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 21 Sep 2015 19:31:00 -0500</pubDate>
+        <link>http://osxi.github.io/ember/github/git/2015/09/21/ember-cli-apps-on-github-pages.html</link>
+        <guid isPermaLink="true">http://osxi.github.io/ember/github/git/2015/09/21/ember-cli-apps-on-github-pages.html</guid>
+        
+        
+        <category>ember</category>
+        
+        <category>github</category>
+        
+        <category>git</category>
+        
+      </item>
     
       <item>
         <title>Welcome to Jekyll!</title>

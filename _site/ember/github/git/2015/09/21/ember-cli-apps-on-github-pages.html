@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>osxi</title>
+    <title>Deploying Ember CLI apps to GitHub Pages</title>
     <meta name="description" content="My collection of hopefully useful articles
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://osxi.github.io/">
+    <link rel="canonical" href="http://osxi.github.io/ember/github/git/2015/09/21/ember-cli-apps-on-github-pages.html">
 </head>
 
 
@@ -54,31 +54,57 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">Deploying Ember CLI apps to GitHub Pages</h1>
+    <p class="post-meta">Sep 21, 2015</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Sep 21, 2015</span>
+  <article class="post-content">
+    <h2 id="background">Background</h2>
 
-        <h2>
-          <a class="post-link" href="/ember/github/git/2015/09/21/ember-cli-apps-on-github-pages.html">Deploying Ember CLI apps to GitHub Pages</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Aug 7, 2015</span>
+<p>While there are tools that can help automate this process (such as <a href="https://github.com/poetic/ember-cli-github-pages/">ember-cli-github-pages</a>), it might be helpful to understand how this process works manually.</p>
 
-        <h2>
-          <a class="post-link" href="/jekyll/update/2015/08/07/welcome-to-jekyll.html">Welcome to Jekyll!</a>
-        </h2>
-      </li>
-    
-  </ul>
+<h2 id="preparation">Preparation</h2>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+<p>The <code>url</code> CSS datatype should reference image data with a path like <code>url('images/foo.png')</code>*. Images embedded into templates should reference image data with a path such as <code>assets/images/foo.png</code>*.</p>
+
+<p>It is important to not prefix the path with <code>/</code>, since this is a full path on the HTTP server and not relative to <code>ENV.baseURL</code>.</p>
+
+<p>After that, ensure that <code>config/environment.js</code> contains:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">environment</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ENV</span><span class="p">.</span><span class="nx">baseURL</span> <span class="o">=</span> <span class="s1">&#39;/project-name&#39;</span><span class="p">;</span>
+    <span class="nx">ENV</span><span class="p">.</span><span class="nx">locationType</span> <span class="o">=</span> <span class="s1">&#39;hash&#39;</span><span class="p">;</span>
+  <span class="p">}</span></code></pre></div>
+
+<p>* <em>where <code>foo.png</code> is an image at <code>project-name/public/assets/images/foo.png</code>.</em></p>
+
+<h2 id="build">Build</h2>
+
+<p>Use <code>ember build --environment production</code> to build the project to <code>dist/</code>.</p>
+
+<h2 id="deploy-to-github">Deploy to GitHub</h2>
+
+<p>First, we’ll checkout the <code>gh-pages</code> branch (see <a href="https://help.github.com/articles/creating-project-pages-manually/">Creating Project Pages manually</a> if you need to create a <code>gh-pages</code> branch) with:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ember build --environment production</code></pre></div>
+
+<p>Copy the app build into the root of the repository:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp -R dist/* ./</code></pre></div>
+
+<p>Commit and push the changes:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git commit -m <span class="s1">&#39;update gh-pages to a73f45e&#39;</span> <span class="o">&amp;&amp;</span> git push</code></pre></div>
+
+<h2 id="after-action-review">After Action Review</h2>
+
+<p>The changes to GitHub pages can take several seconds (around 5-30 seconds) to take effect. Instead of manually creating the <code>gh-pages</code> branch, you can <a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator/">create pages with the automatic generator</a>.</p>
+
+
+  </article>
 
 </div>
 
