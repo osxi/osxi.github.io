@@ -17,10 +17,10 @@ It is important to not prefix the path with `/`, since this is a full path on th
 After that, ensure that `config/environment.js` contains:
 
 {% highlight javascript %}
-  if (environment === 'production') {
-    ENV.baseURL = '/project-name';
-    ENV.locationType = 'hash';
-  }
+if (environment === 'production') {
+  ENV.baseURL = '/project-name';
+  ENV.locationType = 'hash';
+}
 {% endhighlight %}
 
 \* *where `foo.png` is an image at `project-name/public/assets/images/foo.png`.*
@@ -34,19 +34,19 @@ Use `ember build --environment production` to build the project to `dist/`.
 First, we'll checkout the `gh-pages` branch (see [Creating Project Pages manually][creating-project-pages-manually] if you need to create a `gh-pages` branch) with:
 
 {% highlight bash %}
-  ember build --environment production
+ember build --environment production
 {% endhighlight %}
 
 Copy the app build into the root of the repository:
 
 {% highlight bash %}
-  cp -R dist/* ./
+cp -R dist/* ./
 {% endhighlight %}
 
 Commit and push the changes:
 
 {% highlight bash %}
-  git commit -m 'update gh-pages to a73f45e' && git push
+git commit -m 'update gh-pages to a73f45e' && git push
 {% endhighlight %}
 
 ## After Action Review
