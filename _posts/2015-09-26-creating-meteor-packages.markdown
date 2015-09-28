@@ -91,6 +91,8 @@ Package.onUse(function(api) {
 });
 {% endhighlight %}
 
+Now, it is possible to call something like `ComplicatedMath.addOne(0)` from the Meteor app on both the server and the client.
+
 ### After Action Review
 
 This article only covered a handful of the various capabilities and use cases for Meteor packages. See the Further Reading section for links ot more resources on developing Meteor packages.
