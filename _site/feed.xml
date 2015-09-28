@@ -6,9 +6,103 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 22 Sep 2015 01:06:03 -0500</pubDate>
-    <lastBuildDate>Tue, 22 Sep 2015 01:06:03 -0500</lastBuildDate>
+    <pubDate>Sun, 27 Sep 2015 22:40:25 -0500</pubDate>
+    <lastBuildDate>Sun, 27 Sep 2015 22:40:25 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Creating Meteor Packages</title>
+        <description>&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+
+&lt;p&gt;The goal of this article is to get you up and running with developing your own Meteor packages. We’ll cover creating the package itself, adding packages to a package, and exporting Javascript objects to be accessed from within a Meteor app.&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-a-meteor-package&quot;&gt;Creating a Meteor Package&lt;/h3&gt;
+
+&lt;p&gt;The first thing we need to do is create the package itself.&lt;/p&gt;
+
+&lt;p&gt;We need to &lt;code&gt;cd&lt;/code&gt; to wherever we wish to create the package’s folder:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/code/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Where we create our package can be in the usual place you store all of your repositories or it can be the root directory of an existing Meteor project.&lt;/p&gt;
+
+&lt;p&gt;Now we actually create the package:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;meteor create --package osxi:fancy-package&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will create the basic file structure:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls -alh
+-rw-r--r-- &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; osxi staff   0B Sep &lt;span class=&quot;m&quot;&gt;26&lt;/span&gt; 13:29 README.md
+-rw-r--r-- &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; osxi staff 121B Sep &lt;span class=&quot;m&quot;&gt;26&lt;/span&gt; 13:29 fancy-package-tests.js
+-rw-r--r-- &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; osxi staff  33B Sep &lt;span class=&quot;m&quot;&gt;26&lt;/span&gt; 13:29 fancy-package.js
+-rw-r--r-- &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; osxi staff 658B Sep &lt;span class=&quot;m&quot;&gt;26&lt;/span&gt; 13:29 package.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;developing-our-package-within-a-meteor-app&quot;&gt;Developing Our Package Within a Meteor App&lt;/h3&gt;
+
+&lt;p&gt;We can add our package to an existing Meteor app and develop continue to develop the package. Changes to the package contents will cause the Meteor app to live reload.&lt;/p&gt;
+
+&lt;p&gt;To do this, we can create a symbolic link within the &lt;code&gt;packages&lt;/code&gt; fold of our Meteor app, such as:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ln -s ~/path/to/fancy-package ~/path/to/meteor-app/packages/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, we have to install the package into the Meteor app:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;meteor add osxi:fancy-package&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;adding-packages-to-our-package&quot;&gt;Adding Packages to Our Package&lt;/h3&gt;
+
+&lt;p&gt;Adding packages to our package is useful when we want to have access to other Meteor packages such as the &lt;code&gt;lodash&lt;/code&gt; library.&lt;/p&gt;
+
+&lt;p&gt;For example, to add the &lt;code&gt;stevezhu:lodash&lt;/code&gt; (a popular wrapper for the &lt;code&gt;lodash&lt;/code&gt; library) package to our package, we can change our &lt;code&gt;package.js&lt;/code&gt; to look like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onUse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;versionsFrom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;1.2.0.1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ecmascript&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;lodash&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;server&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;client&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;env-load.es6.js&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;At this point, we now have access to the globals that the &lt;code&gt;stevezhu:lodash&lt;/code&gt; exports, which are &lt;code&gt;_&lt;/code&gt; and &lt;code&gt;lodash&lt;/code&gt; from the server and from the client.&lt;/p&gt;
+
+&lt;h3 id=&quot;exposing-objects&quot;&gt;Exposing Objects&lt;/h3&gt;
+
+&lt;p&gt;Exposing objects from a package into a Meteor app is the bread and butter of packages. We can do things like create an object with various methods that we wish to access from an app, such as string inflectors, math libraries, or NPM packages wrapped as global objects.&lt;/p&gt;
+
+&lt;p&gt;A simple example would be the following code in our &lt;code&gt;fancy-package.js&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;ComplicatedMath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;addOne&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and then manipulating &lt;code&gt;package.js&lt;/code&gt; to look something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onUse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;versionsFrom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;1.2.0.1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ecmascript&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fancy-package.js&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ComplicatedMath&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;server&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;client&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;after-action-review&quot;&gt;After Action Review&lt;/h3&gt;
+
+&lt;p&gt;This article only covered a handful of the various capabilities and use cases for Meteor packages. See the Further Reading section for links ot more resources on developing Meteor packages.&lt;/p&gt;
+
+&lt;h3 id=&quot;further-reading&quot;&gt;Further Reading&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://docs.meteor.com/#/full/packagejs&quot;&gt;official Meteor docs for package.js&lt;/a&gt; are a great place check out the various components of the Meteor package API. &lt;a href=&quot;https://atmospherejs.com/i/publishing&quot;&gt;Atmosphere&lt;/a&gt; also has a great guide for publishing packages. There are, as you can imagine, a great amount of blog articles and answered questions regarding packages on &lt;a href=&quot;http://stackoverflow.com/search?q=meteor+package&quot;&gt;Stack Overflow&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 26 Sep 2015 07:00:00 -0500</pubDate>
+        <link>http://osxi.github.io/meteor/2015/09/26/creating-meteor-packages.html</link>
+        <guid isPermaLink="true">http://osxi.github.io/meteor/2015/09/26/creating-meteor-packages.html</guid>
+        
+        
+        <category>meteor</category>
+        
+      </item>
     
       <item>
         <title>Deploying Ember CLI apps to GitHub Pages</title>
