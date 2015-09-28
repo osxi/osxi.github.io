@@ -104,16 +104,16 @@
 
 <p>Adding packages to our package is useful when we want to have access to other Meteor packages such as the <code>lodash</code> library.</p>
 
-<p>For example, to add the <code>stevezhu:lodash</code> (a popular wrapper for the <code>lodash</code> library) package to our package, we can change our <code>package.js</code> to look like:</p>
+<p>For example, to add the <a href="https://atmospherejs.com/stevezhu/lodash"><code>stevezhu:lodash</code></a> (a popular wrapper for the <code>lodash</code> library) package to our package, we can change our <code>package.js</code> to look like:</p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Package</span><span class="p">.</span><span class="nx">onUse</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">api</span><span class="p">.</span><span class="nx">versionsFrom</span><span class="p">(</span><span class="s1">&#39;1.2.0.1&#39;</span><span class="p">);</span>
   <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;ecmascript&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;lodash&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;client&#39;</span><span class="p">]);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;stevezhu:lodash&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;client&#39;</span><span class="p">]);</span>
   <span class="nx">api</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="s1">&#39;env-load.es6.js&#39;</span><span class="p">);</span>
 <span class="p">});</span></code></pre></div>
 
-<p>At this point, we now have access to the globals that the <code>stevezhu:lodash</code> exports, which are <code>_</code> and <code>lodash</code> from the server and from the client.</p>
+<p>At this point, we now have access to the globals that <a href="https://atmospherejs.com/stevezhu/lodash"><code>stevezhu:lodash</code></a> exports, which are <code>_</code> and <code>lodash</code> from the server and from the client.</p>
 
 <h3 id="exposing-objects">Exposing Objects</h3>
 

@@ -6,8 +6,8 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 27 Sep 2015 22:40:25 -0500</pubDate>
-    <lastBuildDate>Sun, 27 Sep 2015 22:40:25 -0500</lastBuildDate>
+    <pubDate>Sun, 27 Sep 2015 23:02:18 -0500</pubDate>
+    <lastBuildDate>Sun, 27 Sep 2015 23:02:18 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -54,16 +54,16 @@
 
 &lt;p&gt;Adding packages to our package is useful when we want to have access to other Meteor packages such as the &lt;code&gt;lodash&lt;/code&gt; library.&lt;/p&gt;
 
-&lt;p&gt;For example, to add the &lt;code&gt;stevezhu:lodash&lt;/code&gt; (a popular wrapper for the &lt;code&gt;lodash&lt;/code&gt; library) package to our package, we can change our &lt;code&gt;package.js&lt;/code&gt; to look like:&lt;/p&gt;
+&lt;p&gt;For example, to add the &lt;a href=&quot;https://atmospherejs.com/stevezhu/lodash&quot;&gt;&lt;code&gt;stevezhu:lodash&lt;/code&gt;&lt;/a&gt; (a popular wrapper for the &lt;code&gt;lodash&lt;/code&gt; library) package to our package, we can change our &lt;code&gt;package.js&lt;/code&gt; to look like:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onUse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;versionsFrom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;1.2.0.1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ecmascript&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;lodash&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;server&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;client&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;stevezhu:lodash&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;server&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;client&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;env-load.es6.js&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;At this point, we now have access to the globals that the &lt;code&gt;stevezhu:lodash&lt;/code&gt; exports, which are &lt;code&gt;_&lt;/code&gt; and &lt;code&gt;lodash&lt;/code&gt; from the server and from the client.&lt;/p&gt;
+&lt;p&gt;At this point, we now have access to the globals that &lt;a href=&quot;https://atmospherejs.com/stevezhu/lodash&quot;&gt;&lt;code&gt;stevezhu:lodash&lt;/code&gt;&lt;/a&gt; exports, which are &lt;code&gt;_&lt;/code&gt; and &lt;code&gt;lodash&lt;/code&gt; from the server and from the client.&lt;/p&gt;
 
 &lt;h3 id=&quot;exposing-objects&quot;&gt;Exposing Objects&lt;/h3&gt;
 

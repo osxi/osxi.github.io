@@ -53,18 +53,18 @@ $ meteor add osxi:fancy-package
 
 Adding packages to our package is useful when we want to have access to other Meteor packages such as the `lodash` library.
 
-For example, to add the `stevezhu:lodash` (a popular wrapper for the `lodash` library) package to our package, we can change our `package.js` to look like:
+For example, to add the [`stevezhu:lodash`][stevezhu_lodash] (a popular wrapper for the `lodash` library) package to our package, we can change our `package.js` to look like:
 
 {% highlight javascript %}
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
   api.use('ecmascript');
-  api.use('lodash', ['server', 'client']);
+  api.use('stevezhu:lodash', ['server', 'client']);
   api.addFiles('env-load.es6.js');
 });
 {% endhighlight %}
 
-At this point, we now have access to the globals that the `stevezhu:lodash` exports, which are `_` and `lodash` from the server and from the client.
+At this point, we now have access to the globals that [`stevezhu:lodash`][stevezhu_lodash] exports, which are `_` and `lodash` from the server and from the client.
 
 ### Exposing Objects
 
@@ -99,6 +99,7 @@ This article only covered a handful of the various capabilities and use cases fo
 
 The [official Meteor docs for package.js][packagejs] are a great place check out the various components of the Meteor package API. [Atmosphere][atmosphere] also has a great guide for publishing packages. There are, as you can imagine, a great amount of blog articles and answered questions regarding packages on [Stack Overflow][stackoverflow].
 
+[stevezhu_lodash]: https://atmospherejs.com/stevezhu/lodash
 [packagejs]: http://docs.meteor.com/#/full/packagejs
 [atmosphere]: https://atmospherejs.com/i/publishing
 [stackoverflow]: http://stackoverflow.com/search?q=meteor+package
