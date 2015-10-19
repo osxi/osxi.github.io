@@ -23,6 +23,7 @@ const MyComponent = React.createClass({
       return foo === 'bar';
     }
   },
+
   render() {
     return;
   }
@@ -58,10 +59,10 @@ let newContact = {
 This would result in a `newContact` object with the value of:
 
 {% highlight Javascript %}
-let newContact = {
+{
   name: 'Zach',
   human: false
-};
+}
 {% endhighlight %}
 
 ### How Can I Apply This to Inline Styles in React?
@@ -110,7 +111,7 @@ const PersonSummary = React.createClass({
 
     return (
       <div style={this.styles}>
-        <div>human: {person.human}</div>
+        <div>human: {person.human.toString()}</div>
         <div>age: {person.age}</div>
       </div>
     );
