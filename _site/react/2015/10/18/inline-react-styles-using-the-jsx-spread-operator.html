@@ -66,7 +66,7 @@
 
 <p>This article shows you one of the many ways to modularize and reuse inline styles for React using Plain Old Javascript Objects with the help of the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React <code>statics</code> object</a> and the <a href="https://facebook.github.io/react/docs/jsx-spread.html">JSX Spread Operator</a>.</p>
 
-<h3 id="react-statics-object">React <code>statics</code> Object</h3>
+<h3 id="statics-object"><code>statics</code> Object</h3>
 
 <p>As per the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React Component Specs and Lifecycle</a> documentation, <em>the <code>statics</code> object allows you to define static methods [and properties] that can be called on the component class.</em></p>
 
@@ -128,7 +128,7 @@
     <span class="p">}</span>
   <span class="p">},</span>
 
-  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
       <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Zach&#39;</span><span class="p">,</span>
       <span class="nx">human</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -153,7 +153,7 @@
     <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>
   <span class="p">},</span>
 
-  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="p">{</span> <span class="nx">person</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
@@ -169,7 +169,7 @@
 
 <p>Our PersonSummary <code>styles</code> object will contain the following styles when it is rendered:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
   <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="c1">// from Person.styles</span>
   <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>             <span class="c1">// added after JSX Spread Operator was used</span>
 <span class="p">}</span></code></pre></div>

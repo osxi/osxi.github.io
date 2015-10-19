@@ -8,7 +8,7 @@ categories: react
 
 This article shows you one of the many ways to modularize and reuse inline styles for React using Plain Old Javascript Objects with the help of the [React `statics` object][react_statics] and the [JSX Spread Operator][jsx_spread].
 
-### React `statics` Object
+### `statics` Object
 
 As per the [React Component Specs and Lifecycle][react_statics] documentation, *the `statics` object allows you to define static methods [and properties] that can be called on the component class.*
 
@@ -79,7 +79,7 @@ const Person = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
     let person = {
       name: 'Zach',
       human: true,
@@ -106,7 +106,7 @@ const PersonSummary = React.createClass({
     color: 'white'
   },
 
-  render: function() {
+  render() {
     let { person } = this.props;
 
     return (
@@ -124,7 +124,7 @@ What's happening here is that the `styles` property of the `PersonSummary` compo
 Our PersonSummary `styles` object will contain the following styles when it is rendered:
 
 {% highlight Javascript %}
-styles: {
+{
   backgroundColor: 'orange', // from Person.styles
   color: 'white'             // added after JSX Spread Operator was used
 }

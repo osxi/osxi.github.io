@@ -6,8 +6,8 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 18 Oct 2015 21:57:38 -0500</pubDate>
-    <lastBuildDate>Sun, 18 Oct 2015 21:57:38 -0500</lastBuildDate>
+    <pubDate>Sun, 18 Oct 2015 22:02:47 -0500</pubDate>
+    <lastBuildDate>Sun, 18 Oct 2015 22:02:47 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -16,7 +16,7 @@
 
 &lt;p&gt;This article shows you one of the many ways to modularize and reuse inline styles for React using Plain Old Javascript Objects with the help of the &lt;a href=&quot;https://facebook.github.io/react/docs/component-specs.html#statics&quot;&gt;React &lt;code&gt;statics&lt;/code&gt; object&lt;/a&gt; and the &lt;a href=&quot;https://facebook.github.io/react/docs/jsx-spread.html&quot;&gt;JSX Spread Operator&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;react-statics-object&quot;&gt;React &lt;code&gt;statics&lt;/code&gt; Object&lt;/h3&gt;
+&lt;h3 id=&quot;statics-object&quot;&gt;&lt;code&gt;statics&lt;/code&gt; Object&lt;/h3&gt;
 
 &lt;p&gt;As per the &lt;a href=&quot;https://facebook.github.io/react/docs/component-specs.html#statics&quot;&gt;React Component Specs and Lifecycle&lt;/a&gt; documentation, &lt;em&gt;the &lt;code&gt;statics&lt;/code&gt; object allows you to define static methods [and properties] that can be called on the component class.&lt;/em&gt;&lt;/p&gt;
 
@@ -78,7 +78,7 @@
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 
-  &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Zach&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
       &lt;span class=&quot;nx&quot;&gt;human&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -103,7 +103,7 @@
     &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 
-  &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
@@ -119,7 +119,7 @@
 
 &lt;p&gt;Our PersonSummary &lt;code&gt;styles&lt;/code&gt; object will contain the following styles when it is rendered:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;orange&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// from Person.styles&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// added after JSX Spread Operator was used&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
