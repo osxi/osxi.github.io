@@ -68,7 +68,7 @@
 
 <h3 id="react-statics-object">React <code>statics</code> Object</h3>
 
-<p>As per the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">Component Specs and Lifecycle</a> documentation, the <code>statics</code> object allows you to define static methods that can be called on the component class.</p>
+<p>As per the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React Component Specs and Lifecycle</a> documentation, <em>the <code>statics</code> object allows you to define static methods [and properties] that can be called on the component class.</em></p>
 
 <p>What this means is that you can access these properties of your React component class outside of instantiation of the actual component.</p>
 
@@ -117,7 +117,7 @@
 
 <h3 id="how-can-i-apply-this-to-inline-styles-in-react">How Can I Apply This to Inline Styles in React?</h3>
 
-<p>For this example, we’ll be using a React component called <code>Person</code> that is the parent component wrapping a component called <code>PersonSummary</code>.</p>
+<p>As an example, we’ll be using a React component called <code>Person</code> that is the parent component wrapping a component called <code>PersonSummary</code>.</p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Person component</span>
 
@@ -165,11 +165,13 @@
   <span class="p">}</span>
 <span class="p">});</span></code></pre></div>
 
-<p>What’s happening here is that the <code>styles</code> property of the <code>PersonSummary</code> component is being defined as the value of <code>Person.styles</code> (static property that is available anywhere) with the addition of the <code>color</code> property, containing the value of <code>white</code>, so our PersonSummary <code>styles</code> object will contain the following styles when it is rendered:</p>
+<p>What’s happening here is that the <code>styles</code> property of the <code>PersonSummary</code> component is being defined as the value of <code>Person.styles</code> (a static property that is available anywhere) with the addition of the <code>color</code> property, containing the value of <code>white</code>.</p>
+
+<p>Our PersonSummary <code>styles</code> object will contain the following styles when it is rendered:</p>
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>
   <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="c1">// from Person.styles</span>
-  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>             <span class="c1">// added after JSX Spread Operator was usde</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>             <span class="c1">// added after JSX Spread Operator was used</span>
 <span class="p">}</span></code></pre></div>
 
 <p>The rendered Person component will look something like this:</p>
@@ -180,7 +182,7 @@
 
 <p>We covered one of many (and seemingly controversial) techniques used to implement reusable styles in React components. Personally, I think inline styling via Plain Old Javascript Objects seems to be the way to go.</p>
 
-<p>Using this technique with your styles, defining styles in ES6 modules, and recycling common styles using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects.</p>
+<p>By factoring style objects out into ES6 modules and recycling common CSS properties using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects as they scale up in size.</p>
 
 
   </article>

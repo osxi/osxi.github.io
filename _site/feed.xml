@@ -6,8 +6,8 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 18 Oct 2015 21:44:36 -0500</pubDate>
-    <lastBuildDate>Sun, 18 Oct 2015 21:44:36 -0500</lastBuildDate>
+    <pubDate>Sun, 18 Oct 2015 21:57:38 -0500</pubDate>
+    <lastBuildDate>Sun, 18 Oct 2015 21:57:38 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -18,7 +18,7 @@
 
 &lt;h3 id=&quot;react-statics-object&quot;&gt;React &lt;code&gt;statics&lt;/code&gt; Object&lt;/h3&gt;
 
-&lt;p&gt;As per the &lt;a href=&quot;https://facebook.github.io/react/docs/component-specs.html#statics&quot;&gt;Component Specs and Lifecycle&lt;/a&gt; documentation, the &lt;code&gt;statics&lt;/code&gt; object allows you to define static methods that can be called on the component class.&lt;/p&gt;
+&lt;p&gt;As per the &lt;a href=&quot;https://facebook.github.io/react/docs/component-specs.html#statics&quot;&gt;React Component Specs and Lifecycle&lt;/a&gt; documentation, &lt;em&gt;the &lt;code&gt;statics&lt;/code&gt; object allows you to define static methods [and properties] that can be called on the component class.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;What this means is that you can access these properties of your React component class outside of instantiation of the actual component.&lt;/p&gt;
 
@@ -67,7 +67,7 @@
 
 &lt;h3 id=&quot;how-can-i-apply-this-to-inline-styles-in-react&quot;&gt;How Can I Apply This to Inline Styles in React?&lt;/h3&gt;
 
-&lt;p&gt;For this example, we’ll be using a React component called &lt;code&gt;Person&lt;/code&gt; that is the parent component wrapping a component called &lt;code&gt;PersonSummary&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As an example, we’ll be using a React component called &lt;code&gt;Person&lt;/code&gt; that is the parent component wrapping a component called &lt;code&gt;PersonSummary&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Person component&lt;/span&gt;
 
@@ -115,11 +115,13 @@
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;What’s happening here is that the &lt;code&gt;styles&lt;/code&gt; property of the &lt;code&gt;PersonSummary&lt;/code&gt; component is being defined as the value of &lt;code&gt;Person.styles&lt;/code&gt; (static property that is available anywhere) with the addition of the &lt;code&gt;color&lt;/code&gt; property, containing the value of &lt;code&gt;white&lt;/code&gt;, so our PersonSummary &lt;code&gt;styles&lt;/code&gt; object will contain the following styles when it is rendered:&lt;/p&gt;
+&lt;p&gt;What’s happening here is that the &lt;code&gt;styles&lt;/code&gt; property of the &lt;code&gt;PersonSummary&lt;/code&gt; component is being defined as the value of &lt;code&gt;Person.styles&lt;/code&gt; (a static property that is available anywhere) with the addition of the &lt;code&gt;color&lt;/code&gt; property, containing the value of &lt;code&gt;white&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our PersonSummary &lt;code&gt;styles&lt;/code&gt; object will contain the following styles when it is rendered:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;orange&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// from Person.styles&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// added after JSX Spread Operator was usde&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// added after JSX Spread Operator was used&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The rendered Person component will look something like this:&lt;/p&gt;
@@ -130,7 +132,7 @@
 
 &lt;p&gt;We covered one of many (and seemingly controversial) techniques used to implement reusable styles in React components. Personally, I think inline styling via Plain Old Javascript Objects seems to be the way to go.&lt;/p&gt;
 
-&lt;p&gt;Using this technique with your styles, defining styles in ES6 modules, and recycling common styles using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects.&lt;/p&gt;
+&lt;p&gt;By factoring style objects out into ES6 modules and recycling common CSS properties using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects as they scale up in size.&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 18 Oct 2015 11:00:00 -0500</pubDate>

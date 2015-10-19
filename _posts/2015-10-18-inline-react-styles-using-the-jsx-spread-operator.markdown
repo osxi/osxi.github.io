@@ -10,7 +10,7 @@ This article shows you one of the many ways to modularize and reuse inline style
 
 ### React `statics` Object
 
-As per the [Component Specs and Lifecycle][react_statics] documentation, the `statics` object allows you to define static methods that can be called on the component class.
+As per the [React Component Specs and Lifecycle][react_statics] documentation, *the `statics` object allows you to define static methods [and properties] that can be called on the component class.*
 
 What this means is that you can access these properties of your React component class outside of instantiation of the actual component.
 
@@ -67,7 +67,7 @@ This would result in a `newContact` object with the value of:
 
 ### How Can I Apply This to Inline Styles in React?
 
-For this example, we'll be using a React component called `Person` that is the parent component wrapping a component called `PersonSummary`.
+As an example, we'll be using a React component called `Person` that is the parent component wrapping a component called `PersonSummary`.
 
 {% highlight Javascript %}
 // Person component
@@ -119,12 +119,14 @@ const PersonSummary = React.createClass({
 });
 {% endhighlight %}
 
-What's happening here is that the `styles` property of the `PersonSummary` component is being defined as the value of `Person.styles` (static property that is available anywhere) with the addition of the `color` property, containing the value of `white`, so our PersonSummary `styles` object will contain the following styles when it is rendered:
+What's happening here is that the `styles` property of the `PersonSummary` component is being defined as the value of `Person.styles` (a static property that is available anywhere) with the addition of the `color` property, containing the value of `white`.
+
+Our PersonSummary `styles` object will contain the following styles when it is rendered:
 
 {% highlight Javascript %}
 styles: {
   backgroundColor: 'orange', // from Person.styles
-  color: 'white'             // added after JSX Spread Operator was usde
+  color: 'white'             // added after JSX Spread Operator was used
 }
 {% endhighlight %}
 
@@ -136,7 +138,7 @@ The rendered Person component will look something like this:
 
 We covered one of many (and seemingly controversial) techniques used to implement reusable styles in React components. Personally, I think inline styling via Plain Old Javascript Objects seems to be the way to go.
 
-Using this technique with your styles, defining styles in ES6 modules, and recycling common styles using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects.
+By factoring style objects out into ES6 modules and recycling common CSS properties using the JSX Spread Operator as a sort of mixin seems like it would result in fairly clean and readable React components in your projects as they scale up in size.
 
 [react_statics]: https://facebook.github.io/react/docs/component-specs.html#statics
 [es6_spread]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
