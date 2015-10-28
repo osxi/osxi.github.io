@@ -6,8 +6,8 @@
 </description>
     <link>http://osxi.github.io/</link>
     <atom:link href="http://osxi.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 18 Oct 2015 22:02:47 -0500</pubDate>
-    <lastBuildDate>Sun, 18 Oct 2015 22:02:47 -0500</lastBuildDate>
+    <pubDate>Tue, 27 Oct 2015 20:36:39 -0500</pubDate>
+    <lastBuildDate>Tue, 27 Oct 2015 20:36:39 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -274,6 +274,10 @@
 &lt;p&gt;Copy the app build into the root of the repository:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cp -R dist/* ./&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Add relevant files (not node_modules/, README.md, etc)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git add index.html assets/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Commit and push the changes:&lt;/p&gt;
 

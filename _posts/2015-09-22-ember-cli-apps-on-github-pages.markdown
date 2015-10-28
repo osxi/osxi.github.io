@@ -43,6 +43,12 @@ Copy the app build into the root of the repository:
 cp -R dist/* ./
 {% endhighlight %}
 
+Add relevant files (not node_modules/, README.md, etc)
+
+{% highlight bash %}
+git add index.html assets/
+{% endhighlight %}
+
 Commit and push the changes:
 
 {% highlight bash %}
