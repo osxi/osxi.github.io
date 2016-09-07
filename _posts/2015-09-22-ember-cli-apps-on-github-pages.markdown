@@ -34,7 +34,7 @@ Use `ember build --environment production` to build the project to `dist/`.
 First, we'll checkout the `gh-pages` branch (see [Creating Project Pages manually][creating-project-pages-manually] if you need to create a `gh-pages` branch) with:
 
 {% highlight bash %}
-git checkout gh-pages
+git checkout --orphan gh-pages
 {% endhighlight %}
 
 Copy the app build into the root of the repository:

@@ -64,29 +64,29 @@
   <article class="post-content">
     <h3 id="background">Background</h3>
 
-<p>This article shows you one of the many ways to modularize and reuse inline styles for React using Plain Old Javascript Objects with the help of the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React <code>statics</code> object</a> and the <a href="https://facebook.github.io/react/docs/jsx-spread.html">JSX Spread Operator</a>.</p>
+<p>This article shows you one of the many ways to modularize and reuse inline styles for React using Plain Old Javascript Objects with the help of the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React <code class="highlighter-rouge">statics</code> object</a> and the <a href="https://facebook.github.io/react/docs/jsx-spread.html">JSX Spread Operator</a>.</p>
 
-<h3 id="statics-object"><code>statics</code> Object</h3>
+<h3 id="statics-object"><code class="highlighter-rouge">statics</code> Object</h3>
 
-<p>As per the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React Component Specs and Lifecycle</a> documentation, <em>the <code>statics</code> object allows you to define static methods [and properties] that can be called on the component class.</em></p>
+<p>As per the <a href="https://facebook.github.io/react/docs/component-specs.html#statics">React Component Specs and Lifecycle</a> documentation, <em>the <code class="highlighter-rouge">statics</code> object allows you to define static methods [and properties] that can be called on the component class.</em></p>
 
 <p>What this means is that you can access these properties of your React component class outside of instantiation of the actual component.</p>
 
 <p>For example, let’s say we have the following React component:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">statics</span><span class="o">:</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="na">statics</span><span class="p">:</span> <span class="p">{</span>
     <span class="nx">customMethod</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">foo</span> <span class="o">===</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">foo</span> <span class="o">===</span> <span class="s1">'bar'</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">},</span>
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 
-<p>We will then have access to <code>MyComponent#customMethod</code> anywhere within our application where <code>MyComponent</code> is defined (via import or require).</p>
+<p>We will then have access to <code class="highlighter-rouge">MyComponent#customMethod</code> anywhere within our application where <code class="highlighter-rouge">MyComponent</code> is defined (via import or require).</p>
 
 <h3 id="jsx-spread-operator">JSX Spread Operator</h3>
 
@@ -96,61 +96,61 @@
 
 <p>Suppose we have an object in our code like:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">contact</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Zach&#39;</span><span class="p">,</span>
-  <span class="nx">human</span><span class="o">:</span> <span class="kc">true</span>
-<span class="p">};</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">contact</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Zach'</span><span class="p">,</span>
+  <span class="na">human</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">};</span></code></pre></figure>
 
 <p>If we ever want to create a new object based on this one (as opposed to mutating it, for the purposes of using this object as our State in something like a <a href="http://redux.js.org/">Redux</a> store), we can then define a new object using:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">newContact</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">newContact</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">...</span><span class="nx">contact</span><span class="p">,</span>
-  <span class="nx">human</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">};</span></code></pre></div>
+  <span class="na">human</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">};</span></code></pre></figure>
 
-<p>This would result in a <code>newContact</code> object with the value of:</p>
+<p>This would result in a <code class="highlighter-rouge">newContact</code> object with the value of:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Zach&#39;</span><span class="p">,</span>
-  <span class="nx">human</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="s1">'Zach'</span><span class="p">,</span>
+  <span class="nx">human</span><span class="err">:</span> <span class="kc">false</span>
+<span class="p">}</span></code></pre></figure>
 
 <h3 id="how-can-i-apply-this-to-inline-styles-in-react">How Can I Apply This to Inline Styles in React?</h3>
 
-<p>As an example, we’ll be using a React component called <code>Person</code> that is the parent component wrapping a component called <code>PersonSummary</code>.</p>
+<p>As an example, we’ll be using a React component called <code class="highlighter-rouge">Person</code> that is the parent component wrapping a component called <code class="highlighter-rouge">PersonSummary</code>.</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Person component</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Person component</span>
 
 <span class="kr">const</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">statics</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;orange&#39;</span>
+  <span class="na">statics</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">styles</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">backgroundColor</span><span class="p">:</span> <span class="s1">'orange'</span>
     <span class="p">}</span>
   <span class="p">},</span>
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Zach&#39;</span><span class="p">,</span>
-      <span class="nx">human</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nx">age</span><span class="o">:</span> <span class="mi">27</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'Zach'</span><span class="p">,</span>
+      <span class="na">human</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">age</span><span class="p">:</span> <span class="mi">27</span>
     <span class="p">};</span>
 
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">Person</span><span class="p">.</span><span class="nx">styles</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Person</span><span class="o">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
-
-        <span class="o">&lt;</span><span class="nx">PersonSummary</span> <span class="nx">person</span><span class="o">=</span><span class="p">{</span><span class="nx">person</span><span class="p">}</span> <span class="o">/&gt;</span>
-      <span class="o">&lt;</span><span class="err">/div&gt;</span>
-    <span class="p">);</span>
+        <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="na">Person</span><span class="p">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h3</span><span class="err">&gt;
+</span>
+        <span class="o">&lt;</span><span class="nx">PersonSummary</span> <span class="nx">person</span><span class="o">=</span><span class="p">{</span><span class="nx">person</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
   <span class="p">}</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// PersonSummary component</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// PersonSummary component</span>
 
 <span class="kr">const</span> <span class="nx">PersonSummary</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>
+  <span class="na">styles</span><span class="p">:</span> <span class="p">{</span>
     <span class="p">...</span><span class="nx">Person</span><span class="p">.</span><span class="nx">styles</span><span class="p">,</span>
-    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>
+    <span class="na">color</span><span class="p">:</span> <span class="s1">'white'</span>
   <span class="p">},</span>
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
@@ -158,21 +158,21 @@
 
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">styles</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">human</span><span class="o">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">human</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
-        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">age</span><span class="o">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
-      <span class="o">&lt;</span><span class="err">/div&gt;</span>
-    <span class="p">);</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="na">human</span><span class="p">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">human</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="na">age</span><span class="p">:</span> <span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
   <span class="p">}</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 
-<p>What’s happening here is that the <code>styles</code> property of the <code>PersonSummary</code> component is being defined as the value of <code>Person.styles</code> (a static property that is available anywhere) with the addition of the <code>color</code> property, containing the value of <code>white</code>.</p>
+<p>What’s happening here is that the <code class="highlighter-rouge">styles</code> property of the <code class="highlighter-rouge">PersonSummary</code> component is being defined as the value of <code class="highlighter-rouge">Person.styles</code> (a static property that is available anywhere) with the addition of the <code class="highlighter-rouge">color</code> property, containing the value of <code class="highlighter-rouge">white</code>.</p>
 
-<p>Our PersonSummary <code>styles</code> object will contain the following styles when it is rendered:</p>
+<p>Our PersonSummary <code class="highlighter-rouge">styles</code> object will contain the following styles when it is rendered:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="c1">// from Person.styles</span>
-  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span>             <span class="c1">// added after JSX Spread Operator was used</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="nl">backgroundColor</span><span class="p">:</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="c1">// from Person.styles</span>
+  <span class="nx">color</span><span class="err">:</span> <span class="s1">'white'</span>             <span class="c1">// added after JSX Spread Operator was used</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>The rendered Person component will look something like this:</p>
 
@@ -187,21 +187,6 @@
 
   </article>
 
-  
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES * * */
-      // Required: on line below, replace text in quotes with your forum shortname
-      var disqus_shortname = 'osxi-blog';
-
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
   
 </div>
 

@@ -70,73 +70,73 @@
 
 <p>The first thing we need to do is create the package itself.</p>
 
-<p>We need to <code>cd</code> to wherever we wish to create the package’s folder:</p>
+<p>We need to <code class="highlighter-rouge">cd</code> to wherever we wish to create the package’s folder:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/code/</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/code/</code></pre></figure>
 
 <p>Where we create our package can be in the usual place you store all of your repositories or it can be the root directory of an existing Meteor project.</p>
 
 <p>Now we actually create the package:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">meteor create --package osxi:fancy-package</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">meteor create --package osxi:fancy-package</code></pre></figure>
 
 <p>This will create the basic file structure:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ls -alh
--rw-r--r-- <span class="m">1</span> osxi staff   0B Sep <span class="m">26</span> 13:29 README.md
--rw-r--r-- <span class="m">1</span> osxi staff 121B Sep <span class="m">26</span> 13:29 fancy-package-tests.js
--rw-r--r-- <span class="m">1</span> osxi staff  33B Sep <span class="m">26</span> 13:29 fancy-package.js
--rw-r--r-- <span class="m">1</span> osxi staff 658B Sep <span class="m">26</span> 13:29 package.js</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>ls -alh
+-rw-r--r-- 1 osxi staff   0B Sep 26 13:29 README.md
+-rw-r--r-- 1 osxi staff 121B Sep 26 13:29 fancy-package-tests.js
+-rw-r--r-- 1 osxi staff  33B Sep 26 13:29 fancy-package.js
+-rw-r--r-- 1 osxi staff 658B Sep 26 13:29 package.js</code></pre></figure>
 
 <h3 id="developing-our-package-within-a-meteor-app">Developing Our Package Within a Meteor App</h3>
 
 <p>We can add our package to an existing Meteor app and develop continue to develop the package. Changes to the package contents will cause the Meteor app to live reload.</p>
 
-<p>To do this, we can create a symbolic link within the <code>packages</code> fold of our Meteor app, such as:</p>
+<p>To do this, we can create a symbolic link within the <code class="highlighter-rouge">packages</code> fold of our Meteor app, such as:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ln -s ~/path/to/fancy-package ~/path/to/meteor-app/packages/</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>ln -s ~/path/to/fancy-package ~/path/to/meteor-app/packages/</code></pre></figure>
 
 <p>Then, we have to install the package into the Meteor app:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>meteor add osxi:fancy-package</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>meteor add osxi:fancy-package</code></pre></figure>
 
 <h3 id="adding-packages-to-our-package">Adding Packages to Our Package</h3>
 
-<p>Adding packages to our package is useful when we want to have access to other Meteor packages such as the <code>lodash</code> library.</p>
+<p>Adding packages to our package is useful when we want to have access to other Meteor packages such as the <code class="highlighter-rouge">lodash</code> library.</p>
 
-<p>For example, to add the <a href="https://atmospherejs.com/stevezhu/lodash"><code>stevezhu:lodash</code></a> (a popular wrapper for the <code>lodash</code> library) package to our package, we can change our <code>package.js</code> to look like:</p>
+<p>For example, to add the <a href="https://atmospherejs.com/stevezhu/lodash"><code class="highlighter-rouge">stevezhu:lodash</code></a> (a popular wrapper for the <code class="highlighter-rouge">lodash</code> library) package to our package, we can change our <code class="highlighter-rouge">package.js</code> to look like:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Package</span><span class="p">.</span><span class="nx">onUse</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">versionsFrom</span><span class="p">(</span><span class="s1">&#39;1.2.0.1&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;ecmascript&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;stevezhu:lodash&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;client&#39;</span><span class="p">]);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="s1">&#39;env-load.es6.js&#39;</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Package</span><span class="p">.</span><span class="nx">onUse</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">versionsFrom</span><span class="p">(</span><span class="s1">'1.2.0.1'</span><span class="p">);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">'ecmascript'</span><span class="p">);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">'stevezhu:lodash'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'client'</span><span class="p">]);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="s1">'env-load.es6.js'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 
-<p>At this point, we now have access to the globals that <a href="https://atmospherejs.com/stevezhu/lodash"><code>stevezhu:lodash</code></a> exports, which are <code>_</code> and <code>lodash</code> from the server and from the client.</p>
+<p>At this point, we now have access to the globals that <a href="https://atmospherejs.com/stevezhu/lodash"><code class="highlighter-rouge">stevezhu:lodash</code></a> exports, which are <code class="highlighter-rouge">_</code> and <code class="highlighter-rouge">lodash</code> from the server and from the client.</p>
 
 <h3 id="exposing-objects">Exposing Objects</h3>
 
 <p>Exposing objects from a package into a Meteor app is the bread and butter of packages. We can do things like create an object with various methods that we wish to access from an app, such as string inflectors, math libraries, or NPM packages wrapped as global objects.</p>
 
-<p>A simple example would be the following code in our <code>fancy-package.js</code> file:</p>
+<p>A simple example would be the following code in our <code class="highlighter-rouge">fancy-package.js</code> file:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">ComplicatedMath</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">ComplicatedMath</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">addOne</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
-<p>and then manipulating <code>package.js</code> to look something like:</p>
+<p>and then manipulating <code class="highlighter-rouge">package.js</code> to look something like:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Package</span><span class="p">.</span><span class="nx">onUse</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">versionsFrom</span><span class="p">(</span><span class="s1">&#39;1.2.0.1&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;ecmascript&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="s1">&#39;fancy-package.js&#39;</span><span class="p">);</span>
-  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span><span class="s1">&#39;ComplicatedMath&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;client&#39;</span><span class="p">]);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Package</span><span class="p">.</span><span class="nx">onUse</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">versionsFrom</span><span class="p">(</span><span class="s1">'1.2.0.1'</span><span class="p">);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">'ecmascript'</span><span class="p">);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="s1">'fancy-package.js'</span><span class="p">);</span>
+  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span><span class="s1">'ComplicatedMath'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'client'</span><span class="p">]);</span>
+<span class="p">});</span></code></pre></figure>
 
-<p>Now, it is possible to call something like <code>ComplicatedMath.addOne(0)</code> from the Meteor app on both the server and the client.</p>
+<p>Now, it is possible to call something like <code class="highlighter-rouge">ComplicatedMath.addOne(0)</code> from the Meteor app on both the server and the client.</p>
 
 <h3 id="after-action-review">After Action Review</h3>
 
@@ -149,21 +149,6 @@
 
   </article>
 
-  
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES * * */
-      // Required: on line below, replace text in quotes with your forum shortname
-      var disqus_shortname = 'osxi-blog';
-
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
   
 </div>
 

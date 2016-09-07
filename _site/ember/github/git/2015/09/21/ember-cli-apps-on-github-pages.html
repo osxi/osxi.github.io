@@ -68,63 +68,48 @@
 
 <h2 id="preparation">Preparation</h2>
 
-<p>The <code>url</code> CSS datatype should reference image data with a path like <code>url('images/foo.png')</code>*. Images embedded into templates should reference image data with a path such as <code>assets/images/foo.png</code>*.</p>
+<p>The <code class="highlighter-rouge">url</code> CSS datatype should reference image data with a path like <code class="highlighter-rouge">url('images/foo.png')</code>*. Images embedded into templates should reference image data with a path such as <code class="highlighter-rouge">assets/images/foo.png</code>*.</p>
 
-<p>It is important to not prefix the path with <code>/</code>, since this is a full path on the HTTP server and not relative to <code>ENV.baseURL</code>.</p>
+<p>It is important to not prefix the path with <code class="highlighter-rouge">/</code>, since this is a full path on the HTTP server and not relative to <code class="highlighter-rouge">ENV.baseURL</code>.</p>
 
-<p>After that, ensure that <code>config/environment.js</code> contains:</p>
+<p>After that, ensure that <code class="highlighter-rouge">config/environment.js</code> contains:</p>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">environment</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">ENV</span><span class="p">.</span><span class="nx">baseURL</span> <span class="o">=</span> <span class="s1">&#39;/project-name&#39;</span><span class="p">;</span>
-  <span class="nx">ENV</span><span class="p">.</span><span class="nx">locationType</span> <span class="o">=</span> <span class="s1">&#39;hash&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">environment</span> <span class="o">===</span> <span class="s1">'production'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ENV</span><span class="p">.</span><span class="nx">baseURL</span> <span class="o">=</span> <span class="s1">'/project-name'</span><span class="p">;</span>
+  <span class="nx">ENV</span><span class="p">.</span><span class="nx">locationType</span> <span class="o">=</span> <span class="s1">'hash'</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
-<p>* <em>where <code>foo.png</code> is an image at <code>project-name/public/assets/images/foo.png</code>.</em></p>
+<p>* <em>where <code class="highlighter-rouge">foo.png</code> is an image at <code class="highlighter-rouge">project-name/public/assets/images/foo.png</code>.</em></p>
 
 <h2 id="build">Build</h2>
 
-<p>Use <code>ember build --environment production</code> to build the project to <code>dist/</code>.</p>
+<p>Use <code class="highlighter-rouge">ember build --environment production</code> to build the project to <code class="highlighter-rouge">dist/</code>.</p>
 
 <h2 id="deploy-to-github">Deploy to GitHub</h2>
 
-<p>First, we’ll checkout the <code>gh-pages</code> branch (see <a href="https://help.github.com/articles/creating-project-pages-manually/">Creating Project Pages manually</a> if you need to create a <code>gh-pages</code> branch) with:</p>
+<p>First, we’ll checkout the <code class="highlighter-rouge">gh-pages</code> branch (see <a href="https://help.github.com/articles/creating-project-pages-manually/">Creating Project Pages manually</a> if you need to create a <code class="highlighter-rouge">gh-pages</code> branch) with:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout gh-pages</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout --orphan gh-pages</code></pre></figure>
 
 <p>Copy the app build into the root of the repository:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp -R dist/* ./</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -R dist/<span class="k">*</span> ./</code></pre></figure>
 
 <p>Add relevant files (not node_modules/, README.md, etc)</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git add index.html assets/</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git add index.html assets/</code></pre></figure>
 
 <p>Commit and push the changes:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git commit -m <span class="s1">&#39;update gh-pages to a73f45e&#39;</span> <span class="o">&amp;&amp;</span> git push</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git commit -m <span class="s1">'update gh-pages to a73f45e'</span> <span class="o">&amp;&amp;</span> git push</code></pre></figure>
 
 <h2 id="after-action-review">After Action Review</h2>
 
-<p>The changes to GitHub pages can take several seconds (around 5-30 seconds) to take effect. Instead of manually creating the <code>gh-pages</code> branch, you can <a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator/">create pages with the automatic generator</a>.</p>
+<p>The changes to GitHub pages can take several seconds (around 5-30 seconds) to take effect. Instead of manually creating the <code class="highlighter-rouge">gh-pages</code> branch, you can <a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator/">create pages with the automatic generator</a>.</p>
 
 
   </article>
 
-  
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES * * */
-      // Required: on line below, replace text in quotes with your forum shortname
-      var disqus_shortname = 'osxi-blog';
-
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
   
 </div>
 
